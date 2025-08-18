@@ -1,3 +1,43 @@
+@keyframes ticker {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.ticker-wrap {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 40px;
+    background-color: white;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.ticker {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    white-space: nowrap;
+}
+
+.ticker-content {
+    display: flex;
+    animation: ticker 30s linear infinite;
+}
+
+.ticker-content span {
+    display: inline-block;
+    padding: 10px 40px;
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -21,9 +61,20 @@ body {
 
 .content-wrapper {
     min-height: 100vh;
+    padding-top: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.content-wrapper {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px; /* Account for ticker */
 }
 
 .container {
@@ -37,10 +88,25 @@ body {
     margin: 2rem;
 }
 
+.profile-grid {
+    position: fixed;
+    top: 40px; /* Account for the ticker */
+    left: -100px; /* Extend beyond viewport */
+    width: calc(100% + 200px); /* Compensate for negative margins */
+    height: calc(100vh + 100px); /* Extend beyond bottom */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    gap: 24px;
+    padding: 24px;
+    z-index: -1;
+    justify-content: center; /* Center the grid */
+    align-content: start; /* Start from the top */
+    overflow: visible; /* Allow bleeding effect */
+}
+
 .profile-img {
     width: 200px;
     height: 200px;
-    margin: 0 auto 2rem;
 }
 
 .profile-img img {
@@ -48,6 +114,31 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    transition: object-position 0.5s ease-out;
+}
+
+/* Ultra-dramatic crop positions with extreme variations */
+.crop-1 img { object-position: 0% 0%; }         /* Extreme top-left */
+.crop-2 img { object-position: 100% 0%; }       /* Extreme top-right */
+.crop-3 img { object-position: 0% 100%; }       /* Extreme bottom-left */
+.crop-4 img { object-position: 100% 100%; }     /* Extreme bottom-right */
+.crop-5 img { object-position: 50% 0%; }        /* Dead center top */
+.crop-6 img { object-position: 50% 100%; }      /* Dead center bottom */
+.crop-7 img { object-position: 0% 50%; }        /* Dead center left */
+.crop-8 img { object-position: 100% 50%; }      /* Dead center right */
+.crop-9 img { object-position: 25% 25%; }       /* Upper left quadrant */
+.crop-10 img { object-position: 75% 25%; }      /* Upper right quadrant */
+.crop-11 img { object-position: 25% 75%; }      /* Lower left quadrant */
+.crop-12 img { object-position: 75% 75%; }      /* Lower right quadrant */
+.crop-13 img { object-position: 15% 85%; }      /* Dramatic angle bottom-left */
+.crop-14 img { object-position: 85% 15%; }      /* Dramatic angle top-right */
+.crop-15 img { object-position: 40% 10%; }      /* High detail left-leaning */
+.crop-16 img { object-position: 60% 90%; }      /* Low detail right-leaning */
+
+/* Dynamic hover effect */
+.profile-img:hover img {
+    object-position: 50% 30%;  /* Slightly above center for interest */
+    transition: object-position 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy, playful transition */
 }
 
 h1 {
@@ -63,6 +154,7 @@ p {
 .contact-btn {
     padding: 12px 24px;
     font-size: 1.1rem;
+    font-weight: bold;
     color: #333;
     background: transparent;
     border: 2px solid #333;
